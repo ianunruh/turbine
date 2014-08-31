@@ -1,3 +1,4 @@
+/* global moment, Backbone, $ */
 'use strict';
 
 Backbone.View.prototype.close = function () {
@@ -6,7 +7,7 @@ Backbone.View.prototype.close = function () {
   if (this.onClose) {
     this.onClose();
   }
-}
+};
 
 var Turbine = {
   baseURL: 'http://localhost:5000',
@@ -32,11 +33,11 @@ var Turbine = {
 Turbine.Router = Backbone.Router.extend({
 
   routes: {
-    "history/:teamId/:serviceId": "history",
-    "*actions": "stat",
+    'history/:teamId/:serviceId': 'history',
+    '*actions': 'stat',
   },
 
-  stat: function (actions) {
+  stat: function () {
     $('#loading').show();
 
     var self = this;
@@ -143,5 +144,5 @@ Turbine.HistoryView = Backbone.View.extend({
 });
 
 $(document).ready(function () {
-    Turbine.init();
+  Turbine.init();
 });
