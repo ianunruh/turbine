@@ -37,7 +37,7 @@ Turbine.Router = Backbone.Router.extend({
   },
 
   stat: function (actions) {
-    Turbine.changeView(new Turbine.LoadingView())
+    $('#loading').show();
 
     var self = this;
 
@@ -50,13 +50,19 @@ Turbine.Router = Backbone.Router.extend({
         view.on('selected', function (teamId, serviceId) {
           self.navigate('history/' + teamId + '/' + serviceId, {trigger: true});
         });
+        view.on('expired', function () {
+          self.stat();
+        });
         Turbine.changeView(view);
+        $('#loading').hide();
       }
     });
   },
 
   history: function (teamId, serviceId) {
-    Turbine.changeView(new Turbine.LoadingView())
+    $('#loading').show();
+
+    var self = this;
 
     $.ajax({
       dataType: 'json',
@@ -64,18 +70,15 @@ Turbine.Router = Backbone.Router.extend({
       success: function (data) {
         var view = new Turbine.HistoryView();
         view.attributes = data;
+        view.on('expired', function () {
+          self.history(teamId, serviceId);
+        });
         Turbine.changeView(view);
+        $('#loading').hide();
       }
     });
   }
 
-});
-
-Turbine.LoadingView = Backbone.View.extend({
-  template: JST['app/scripts/templates/loading.ejs'],
-  render: function () {
-    this.$el.html(this.template())
-  }
 });
 
 function transformSince($el) {
@@ -97,6 +100,12 @@ Turbine.StatusView = Backbone.View.extend({
   render: function () {
     this.$el.html(this.template(this.attributes));
     transformSince(this.$el);
+
+    var self = this;
+
+    this.t = setTimeout(function() {
+      self.trigger('expired');
+    }, 5 * 1000);
   },
   selected: function (e) {
     e.preventDefault();
@@ -107,6 +116,11 @@ Turbine.StatusView = Backbone.View.extend({
 
     this.trigger('selected', teamId, serviceId);
   },
+  onClose: function () {
+    if (this.t) {
+      clearTimeout(this.t);
+    }
+  }
 });
 
 Turbine.HistoryView = Backbone.View.extend({
@@ -114,6 +128,17 @@ Turbine.HistoryView = Backbone.View.extend({
   render: function () {
     this.$el.html(this.template(this.attributes));
     transformSince(this.$el);
+
+    var self = this;
+
+    this.t = setTimeout(function() {
+      self.trigger('expired');
+    }, 5 * 1000);
+  },
+  onClose: function () {
+    if (this.t) {
+      clearTimeout(this.t);
+    }
   }
 });
 
