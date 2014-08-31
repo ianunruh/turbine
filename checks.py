@@ -17,7 +17,11 @@ def check_ssh(host, username, password):
     client.exec_command('whoami', timeout=10)
 
 def check_http(url, matcher):
-    response = requests.get(url, timeout=10)
+    resp = requests.get(url, timeout=10)
+    resp.raise_for_status()
+
+    if matcher not in resp.text:
+        raise ValueError('Page content incorrect')
     
 def check_ftp(host, protocol, username, password):
     raise RuntimeError('Not implemented')
