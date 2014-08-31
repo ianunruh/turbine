@@ -29,7 +29,11 @@
       %>
       <tr>
         <td class="service <%= clazz %>" data-team="<%= teams[i].id %>" data-service="<%= services[j].id %>">
-          <div class="pull-right small since"><%= result.checked_at %></div>
+          <% if (result) { %>
+            <div class="pull-right small since"><%= result.checked_at %></div>
+          <% } else { %>
+            <div class="pull-right small">Never</div>
+          <% } %>
           <%= services[j].name %>
         </td>
       </tr>
