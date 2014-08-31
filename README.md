@@ -9,6 +9,76 @@ Consists of two primary components:
 
 Requires an SQL database (PostgreSQL, MySQL, etc.) for persistence
 
+## API
+
+### Get latest check results
+
+`GET /check-results`
+
+#### Response
+
+`HTTP/1.1 200 OK`
+
+```json
+{
+  "teams": [
+    {
+      "id": 1,
+      "name": "L33t hax0rs"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Web server (HTTP)"
+    }
+  ],
+  "check_results": [
+    {
+      "id": 1,
+      "service_id": 1,
+      "team_id": 1,
+      "checked_at": "2014-08-31T23:32:20Z",
+      "elapsed": 0.066838,
+      "passed": true,
+      "output": null
+    }
+  ]
+}
+```
+
+### Get historical check results
+
+`GET /check-results/<team_id>/<service_id>`
+
+#### Response
+
+`HTTP/1.1 200 OK`
+
+```json
+{
+  "team": {
+    "id": 1,
+    "name": "L33t hax0rs"
+  },
+  "service": {
+    "id": 1,
+    "name": "Web server (HTTP)"
+  },
+  "check_results": [
+    {
+      "id": 1,
+      "service_id": 1,
+      "team_id": 1,
+      "checked_at": "2014-08-31T23:32:20Z",
+      "elapsed": 0.066838,
+      "passed": true,
+      "output": null
+    }
+  ]
+}
+```
+
 ## Development
 
 Start by editing `competition.yml` to your needs. It contains the data that the scoring engine will use for service checks.
