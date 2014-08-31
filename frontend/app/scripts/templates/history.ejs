@@ -1,0 +1,18 @@
+<h2>Check result history</h2>
+
+<% for(var i = 0; i < check_results.length; i++) { %>
+  <div>
+    <h4>
+      <% if(check_results[i].passed) { %>
+      <i class="fa fa-check check-passed"></i>
+      <% } else { %>
+      <i class="fa fa-times check-failed"></i>
+      <% } %>
+      <span class="since"><%= check_results[i].checked_at %></span>
+    </h4>
+
+    <% if(check_results[i].output) { %>
+    <pre><%= check_results[i].output %></pre>
+    <% } %>
+  </div>
+<% } %>

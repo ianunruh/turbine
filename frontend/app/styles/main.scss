@@ -1,0 +1,30 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+$font-family-sans-serif: "Roboto", Helvetica, Arial, sans-serif;
+
+$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+@import "sass-bootstrap/lib/bootstrap";
+
+$fa-font-path: "/bower_components/font-awesome/fonts";
+@import "font-awesome/scss/font-awesome";
+
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#content {
+}
+
+.loading-icon {
+  text-align: center;
+  font-size: 140px;
+}
+
+.check-passed {
+  color: $brand-success;
+}
+
+.check-failed {
+  color: $brand-danger;
+}

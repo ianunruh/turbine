@@ -1,0 +1,43 @@
+<div class="row">
+
+<% for (var i = 0; i < teams.length; i++) { %>
+
+  <div class="col-md-4">
+    <h2><%= teams[i].name %></h2>
+
+    <table class="table table-bordered">
+
+    <% for (var j = 0; j < services.length; j++) { %>
+      <%
+        var result, clazz;
+        for (var k = 0; k < check_results.length; k++) {
+          if (check_results[k].service_id == services[j].id &&
+              check_results[k].team_id == teams[i].id) {
+            result = check_results[k];
+            break;
+          }
+        }
+        if (result) {
+          if (result.passed) {
+            clazz = 'success';
+          } else {
+            clazz = 'danger';
+          }
+        } else {
+          clazz = 'warning';
+        }
+      %>
+      <tr>
+        <td class="service <%= clazz %>" data-team="<%= teams[i].id %>" data-service="<%= services[j].id %>">
+          <div class="pull-right small since"><%= result.checked_at %></div>
+          <%= services[j].name %>
+        </td>
+      </tr>
+    <% } %>
+
+    </table>
+  </div>
+
+<% } %>
+
+</div>

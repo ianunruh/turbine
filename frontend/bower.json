@@ -1,0 +1,14 @@
+{
+  "name": "turbine",
+  "version": "0.0.0",
+  "dependencies": {
+    "sass-bootstrap": "~3.0.2",
+    "jquery": "~2.1.0",
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.0",
+    "modernizr": "~2.7.1",
+    "font-awesome": "~4.2.0",
+    "moment": "~2.8.2"
+  },
+  "devDependencies": {}
+}

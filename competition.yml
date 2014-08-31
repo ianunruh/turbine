@@ -1,0 +1,43 @@
+check_phases:
+  - ["2014-08-29T08:00:00-06:00", "2014-08-29T18:00:00-06:00"]
+
+teams:
+  team1:
+    name: L33t Hax0rs
+    domain: team1.ksucdc.org
+    password_admin1: XE4c8jps
+  team2:
+    name: The Four Oh Threes
+    domain: team2.ksucdc.org
+    password_admin1: 8UFFeRP5
+
+services:
+  web-http:
+    name: Web server (HTTP)
+    active: true
+    check_type: check_http
+    check_options:
+      default:
+        url: "http://www.{domain}"
+        matcher: "Hello world"
+  web-ssh:
+    name: Web server (SSH)
+    active: true
+    check_type: check_ssh
+    check_options:
+      default:
+        host: "www.{domain}"
+        username: admin1
+        password: "{password_admin1}"
+  ftp:
+    name: FTP server
+    active: true
+    check_type: check_ftp
+    check_options:
+      default:
+        host: "ftp.{domain}"
+        protocol: ftp
+        username: admin1
+        password: "{password_admin1}"
+      team1:
+        protocol: sftp
