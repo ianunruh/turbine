@@ -1,18 +1,36 @@
-<h2>Check result history</h2>
+<h2><%= team.name %> &mdash; <%= service.name %></h2>
 
+<table class="table">
+<thead>
+  <tr>
+    <th>Timestamp</th>
+    <th>Elapsed</th>
+    <th>Output</th>
+  </tr>
+</thead>
+<tbody>
 <% for(var i = 0; i < check_results.length; i++) { %>
-  <div>
-    <h4>
-      <% if(check_results[i].passed) { %>
-      <i class="fa fa-check check-passed"></i>
-      <% } else { %>
-      <i class="fa fa-times check-failed"></i>
-      <% } %>
+  <%
+    var clazz;
+    if (check_results[i].passed) {
+      clazz = 'success';
+    } else {
+      clazz = 'danger';
+    }
+  %>
+  <tr class="<%= clazz %>">
+    <td class="nowrap">
       <span class="since"><%= check_results[i].checked_at %></span>
-    </h4>
-
-    <% if(check_results[i].output) { %>
-    <pre><%= check_results[i].output %></pre>
-    <% } %>
-  </div>
+    </td>
+    <td class="nowrap">
+      <%= check_results[i].elapsed.toFixed(2) %>s
+    </td>
+    <td>
+      <% if (!check_results[i].passed) { %>
+        <pre><%= check_results[i].output %></pre>
+      <% } %>
+    </td>
+  </tr>
 <% } %>
+</tbody>
+</table>

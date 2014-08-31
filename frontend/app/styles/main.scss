@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://fonts.googleapis.com/css?family=Oxygen+Mono);
 
 $font-family-sans-serif: "Roboto", Helvetica, Arial, sans-serif;
+$font-family-monospace: "Oxygen Mono", Menlo, monospace;
 
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import "sass-bootstrap/lib/bootstrap";
@@ -16,15 +18,14 @@ body {
 #content {
 }
 
-.loading-icon {
-  text-align: center;
-  font-size: 140px;
-}
-
 .check-passed {
   color: $brand-success;
 }
 
 .check-failed {
   color: $brand-danger;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
