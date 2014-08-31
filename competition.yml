@@ -1,3 +1,4 @@
+# List of time ranges where the service checker is allowed to run
 check_phases:
   - ["2014-08-29T08:00:00-06:00", "2014-08-29T18:00:00-06:00"]
 
@@ -14,10 +15,13 @@ teams:
 services:
   web-http:
     name: Web server (HTTP)
+    # True if service should be visible to teams and enabled for checking
     active: true
+    # Name of the check function to use
     check_type: check_http
     check_options:
       default:
+        # Any check option will be interpolated with team options
         url: "http://www.{domain}"
         matcher: "Hello world"
   web-ssh:
@@ -40,4 +44,5 @@ services:
         username: admin1
         password: "{password_admin1}"
       team1:
+        # Any check option can be overriden for a specific team
         protocol: sftp
